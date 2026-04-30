@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Кабинет • Health Advisor{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h1>Личный кабинет</h1>
+    <p>Вы вошли как <strong>{{ request.user.email }}</strong>.</p>
+    <p class="muted">Эта страница доступна только авторизованным пользователям.</p>
+    <div class="actions">
+      <a class="btn btn--ghost" href="{% url 'logout' %}">Выйти</a>
+    </div>
+  </div>
+{% endblock %}
+

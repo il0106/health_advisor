@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Регистрация • Health Advisor{% endblock %}
+
+{% block content %}
+  <div class="card card--narrow">
+    <h1>Регистрация</h1>
+    <form method="post" class="form">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      <div class="field">
+        <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+        {{ form.email }}
+        {{ form.email.errors }}
+      </div>
+      <div class="field">
+        <label for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
+        {{ form.password1 }}
+        {{ form.password1.errors }}
+      </div>
+      <div class="field">
+        <label for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
+        {{ form.password2 }}
+        {{ form.password2.errors }}
+      </div>
+      <button class="btn" type="submit">Создать аккаунт</button>
+      <p class="muted">Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a></p>
+    </form>
+  </div>
+{% endblock %}
+

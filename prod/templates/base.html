@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Health Advisor{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/site.css' %}">
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar__inner">
+        <a class="brand" href="{% url 'landing' %}">Health Advisor</a>
+        <nav class="nav">
+          <a href="{% url 'landing' %}">Лендинг</a>
+          {% if user.is_authenticated %}
+            <a href="{% url 'me' %}">Кабинет</a>
+            <a href="{% url 'logout' %}">Выйти</a>
+          {% else %}
+            <a href="{% url 'login' %}">Вход</a>
+            <a class="btn btn--sm" href="{% url 'register' %}">Регистрация</a>
+          {% endif %}
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      {% if messages %}
+        <div class="messages">
+          {% for message in messages %}
+            <div class="message message--{{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <span>Минимальный Django сайт • SQLite • Docker</span>
+      </div>
+    </footer>
+  </body>
+</html>
+

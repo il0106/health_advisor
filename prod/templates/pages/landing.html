@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Лендинг • Health Advisor{% endblock %}
+
+{% block content %}
+  <section class="hero">
+    <div class="hero__card">
+      <h1>ИИ‑консультант для питания и тренировок</h1>
+      <p class="muted">
+        Это простейший многостраничный сайт на Django: лендинг, регистрация/вход по email и защищённая страница пользователя.
+      </p>
+      <div class="actions">
+        {% if user.is_authenticated %}
+          <a class="btn" href="{% url 'me' %}">Перейти в кабинет</a>
+        {% else %}
+          <a class="btn" href="{% url 'register' %}">Начать</a>
+          <a class="btn btn--ghost" href="{% url 'login' %}">Уже есть аккаунт</a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
