@@ -24,7 +24,7 @@ docker compose up --build
 - `DJANGO_SUPERUSER_EMAIL`
 - `DJANGO_SUPERUSER_PASSWORD`
 
-База данных пользователей сохраняется в docker volume (см. `DJANGO_DB_PATH=/data/db.sqlite3`), поэтому **не перезатирается при перезапуске контейнера**.
+Postgres разворачивается отдельным контейнером `db`, а данные БД сохраняются в docker volume `pgdata`, поэтому **не перезатираются при перезапуске**.
 
 ### Запуск без Docker (опционально)
 

@@ -1,6 +1,7 @@
 #!/bin/sh
 set -eu
 
+python scripts/wait_for_db.py
 python manage.py migrate --noinput
 python scripts/bootstrap.py
 
