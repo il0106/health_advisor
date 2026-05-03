@@ -5,5 +5,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("pages.urls")),
     path("auth/", include("accounts.urls")),
+    path("monitor/", include("fatsecret_app.urls")),
 ]
 

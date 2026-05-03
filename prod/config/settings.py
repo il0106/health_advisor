@@ -16,6 +16,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "pages",
     "accounts",
+    "fatsecret_app",
 ]
 
 MIDDLEWARE = [

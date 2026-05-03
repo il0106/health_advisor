@@ -15,6 +15,7 @@
           <a href="{% url 'landing' %}">Лендинг</a>
           {% if user.is_authenticated %}
             <a href="{% url 'me' %}">Кабинет</a>
+            <a href="{% url 'monitor' %}">Монитор</a>
             <a href="{% url 'logout' %}">Выйти</a>
           {% else %}
             <a href="{% url 'login' %}">Вход</a>
@@ -37,7 +38,7 @@
 
     <footer class="footer">
       <div class="container footer__inner">
-        <span>Минимальный Django сайт • SQLite • Docker</span>
+        <span>Django • Postgres • Docker</span>
       </div>
     </footer>
   </body>

@@ -78,3 +78,10 @@ input{
 .message--error{border-color:rgba(255,110,110,.4)}
 .footer{border-top:1px solid var(--border); margin-top:50px; background:rgba(11,18,32,.55)}
 .footer__inner{display:flex; align-items:center; justify-content:space-between; color:var(--muted)}
+.kv{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px}
+.kv li{display:flex; gap:12px; justify-content:space-between; flex-wrap:wrap; border-bottom:1px dashed var(--border); padding-bottom:8px}
+.kv li span{color:var(--muted)}
+.table-wrap{overflow-x:auto; margin-top:12px}
+.data-table{width:100%; border-collapse:collapse; font-size:14px}
+.data-table th,.data-table td{padding:8px 10px; border-bottom:1px solid var(--border); text-align:left}
+.data-table th{color:var(--muted); font-weight:600}

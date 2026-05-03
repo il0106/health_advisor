@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Монитор FatSecret{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h1>Монитор FatSecret</h1>
+    <p class="muted">
+      Глубина выгрузки дневника задаётся в <code>.env</code> (<code>FATSECRET_FOOD_DIARY_DAYS</code>); дни, по которым в БД уже есть записи, повторно не запрашиваются.
+    </p>
+
+    {% if not has_oauth %}
+      <p class="message message--error">
+        Сначала подключите FatSecret (OAuth, как в ноутбуке): <a href="{% url 'fs_connect' %}">подключить</a>
+      </p>
+    {% endif %}
+
+    <form method="post" class="form" style="max-width: 320px;">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="sync" />
+      <button class="btn" type="submit" {% if not has_oauth %}disabled{% endif %}>Обновить данные</button>
+    </form>
+
+    {% if not has_oauth %}
+      <p class="muted" style="margin-top: 12px;">Без OAuth токенов кнопка неактивна.</p>
+    {% endif %}
+  </div>
+
+  <div class="card" style="margin-top: 20px;">
+    <h2>Последнее обновление</h2>
+    {% if last_sync_at %}
+      <p>{{ last_sync_at|date:"d.m.Y H:i" }} (серверное время)</p>
+    {% else %}
+      <p class="muted">Ещё не было успешного обновления с этой кнопки (или не завершалась синхронизация).</p>
+    {% endif %}
+  </div>
+
+  <div class="card" style="margin-top: 20px;">
+    <h2>Профиль (fs_profile_data)</h2>
+    {% if fs_profile %}
+      <ul class="kv">
+        <li><span>Рост, см</span> <strong>{{ fs_profile.height_cm|default:"—" }}</strong> ({{ fs_profile.height_measure }})</li>
+        <li><span>Цель веса, кг</span> <strong>{{ fs_profile.goal_weight_kg|default:"—" }}</strong></li>
+        <li><span>Последний вес, кг</span> <strong>{{ fs_profile.last_weight_kg|default:"—" }}</strong> ({{ fs_profile.weight_measure }})</li>
+        <li><span>last_weight_date_int</span> <strong>{{ fs_profile.last_weight_date_int|default:"—" }}</strong></li>
+        <li><span>Запись в БД (fetched_at)</span> <strong>{{ fs_profile.fetched_at|date:"d.m.Y H:i" }}</strong></li>
+      </ul>
+    {% else %}
+      <p class="muted">Нет сохранённого профиля — нажмите «Обновить данные» после подключения FatSecret.</p>
+    {% endif %}
+  </div>
+
+  <div class="card" style="margin-top: 20px;">
+    <h2>Пример из дневника (5 строк из fs_food_diary)</h2>
+    {% if diary_sample %}
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Дата</th>
+              <th>Приём</th>
+              <th>Продукт</th>
+              <th>Ккал</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in diary_sample %}
+              <tr>
+                <td>{{ row.diary_date }}</td>
+                <td>{{ row.meal }}</td>
+                <td>{{ row.food_entry_name|truncatechars:60 }}</td>
+                <td>{{ row.calories|default:"—" }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p class="muted">Пока нет строк в дневнике в БД для вашего пользователя.</p>
+    {% endif %}
+  </div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Подключение FatSecret{% endblock %}
+
+{% block content %}
+  <div class="card card--narrow">
+    <h1>Подключение FatSecret</h1>
+    <p class="muted">
+      Шаги как в ноутбуке: запрос токена → открыть ссылку на FatSecret → ввести PIN (oob).
+      Consumer Key/Secret задаются в переменных окружения (не в коде).
+    </p>
+
+    {% if not auth_url %}
+      <form method="post" class="form">
+        {% csrf_token %}
+        <input type="hidden" name="step" value="1" />
+        <button class="btn" type="submit">Получить ссылку для авторизации</button>
+      </form>
+    {% else %}
+      <p>
+        <a class="btn btn--ghost" href="{{ auth_url }}" target="_blank" rel="noopener">Открыть FatSecret (авторизация)</a>
+      </p>
+      <p class="muted" style="word-break: break-all;">{{ auth_url }}</p>
+      <form method="post" class="form">
+        {% csrf_token %}
+        <input type="hidden" name="step" value="2" />
+        <div class="field">
+          <label for="pin">PIN-код</label>
+          <input id="pin" name="pin" type="text" autocomplete="one-time-code" required />
+        </div>
+        <button class="btn" type="submit">Сохранить токены</button>
+      </form>
+    {% endif %}
+
+    <p style="margin-top: 16px;"><a href="{% url 'monitor' %}">← Назад к монитору</a></p>
+  </div>
+{% endblock %}

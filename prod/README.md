@@ -6,6 +6,11 @@
 - `/auth/register/` — регистрация по email
 - `/auth/login/` — вход по email
 - `/me/` — защищённая страница (без авторизации редиректит на вход)
+- `/monitor/` — монитор FatSecret (только для авторизованных): синхронизация профиля и дневника в Postgres
+
+В `.env` для FatSecret задайте ключи приложения (как в ноутбуке): `ConsumerKey` и `ConsumerSecret`, либо `FATSECRET_CONSUMER_KEY` и `FATSECRET_CONSUMER_SECRET`. Глубина истории дневника: `FATSECRET_FOOD_DIARY_DAYS` (смещение начала периода от даты синхронизации; период включает конечную дату).
+
+Один раз откройте `/monitor/connect/`, пройдите OAuth (ссылка + PIN), затем на `/monitor/` нажмите «Обновить данные».
 
 ### Запуск в Docker
 
